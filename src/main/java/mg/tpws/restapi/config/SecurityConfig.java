@@ -63,11 +63,11 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/categories/**").hasRole("ADMIN")
 
-                        .requestMatchers("/api/tickets/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasRole("AGENT")
                         .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("AGENT")
-                        .requestMatchers(HttpMethod.POST, "/api/tickets").hasAuthority("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/tickets/me").hasAuthority("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/tickets").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/me").hasRole("USER")
+                        .requestMatchers("/api/tickets/**").hasRole("ADMIN")
 
 
                         .requestMatchers(
