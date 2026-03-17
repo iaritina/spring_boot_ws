@@ -18,14 +18,17 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    private String name;
+
     @Column(name = "password")
     private String password;
 
     @Column(name = "role")
     private RoleName role = RoleName.ROLE_USER;
 
-    public User(String email, String password){
+    public User(String email, String name ,String password){
         this.email = email;
+        this.name = name;
         this.password = password;
     }
 }

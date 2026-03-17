@@ -1,21 +1,16 @@
 package mg.tpws.restapi.service;
 
 import mg.tpws.restapi.dto.LoginDTO;
-import mg.tpws.restapi.dto.RegisterDTO;
+import mg.tpws.restapi.dto.user.RegisterDTO;
 import mg.tpws.restapi.model.User;
 import mg.tpws.restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -71,7 +66,7 @@ public class AuthService {
         String hashedPwd = passwordEncoder.encode(dto.getPassword());
 
         User user = userRepository
-                .save(new User(dto.getEmail(), hashedPwd));
+                .save(new User(dto.getEmail(), dto.getName(), hashedPwd));
 
         return Map.of("ID", user.getId(), "Email", user.getEmail());
     }

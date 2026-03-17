@@ -1,7 +1,7 @@
 package mg.tpws.restapi.controller;
 
 import mg.tpws.restapi.dto.LoginDTO;
-import mg.tpws.restapi.dto.RegisterDTO;
+import mg.tpws.restapi.dto.user.RegisterDTO;
 import mg.tpws.restapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
