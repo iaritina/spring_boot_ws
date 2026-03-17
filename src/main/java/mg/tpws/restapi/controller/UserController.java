@@ -28,26 +28,26 @@ public class UserController {
         this.service = service;
     }
 
-    // ADMIN
+
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
-    // ADMIN
+
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    // ADMIN
+
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id,
                                                   @Valid @RequestBody UpdateUserDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    // ADMIN
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         service.delete(id);

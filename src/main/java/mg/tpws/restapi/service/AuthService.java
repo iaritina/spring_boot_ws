@@ -65,13 +65,20 @@ public class AuthService {
     public Map register(RegisterDTO dto) {
         String hashedPwd = passwordEncoder.encode(dto.getPassword());
 
-        User user = userRepository
-                .save(new User(dto.getEmail(), dto.getName(), hashedPwd));
+        User user;
+
+        if (dto.getRole() != null) {
+            user = userRepository.save(
+                    new User(dto.getEmail(), dto.getName(), hashedPwd, dto.getRole())
+            );
+        } else {
+            user = userRepository.save(
+                    new User(dto.getEmail(), dto.getName(), hashedPwd)
+            );
+        }
 
         return Map.of("ID", user.getId(), "Email", user.getEmail());
     }
-
-
 
 
 }
