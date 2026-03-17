@@ -1,8 +1,7 @@
 package mg.tpws.restapi.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +11,9 @@ import java.util.List;
 @Table(name = "tickets")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
