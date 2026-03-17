@@ -60,7 +60,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
+
                         .requestMatchers("/api/categories/**").hasRole("ADMIN")
+
+                        .requestMatchers("/api/tickets/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasRole("AGENT")
+                        .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasRole("AGENT")
+                        .requestMatchers(HttpMethod.POST, "/api/tickets").hasAuthority("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/me").hasAuthority("USER")
+
+
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/products"

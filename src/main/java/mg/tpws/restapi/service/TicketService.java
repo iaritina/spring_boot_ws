@@ -10,6 +10,7 @@ import mg.tpws.restapi.model.User;
 import mg.tpws.restapi.repository.CategoryRepository;
 import mg.tpws.restapi.repository.TicketRepository;
 import mg.tpws.restapi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class TicketService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
 
+    @Autowired
     public TicketService(TicketRepository ticketRepository,
                          UserRepository userRepository,
                          CategoryRepository categoryRepository) {

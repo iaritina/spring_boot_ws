@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import mg.tpws.restapi.dto.ticket.TicketRequestDTO;
 import mg.tpws.restapi.dto.ticket.TicketResponseDTO;
 import mg.tpws.restapi.dto.ticket.TicketUpdateDTO;
+import mg.tpws.restapi.service.JwtService;
 import mg.tpws.restapi.service.TicketService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,11 @@ import java.util.List;
 public class TicketController {
 
     private final TicketService ticketService;
+    private final JwtService jwtService;
 
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, JwtService jwtService) {
         this.ticketService = ticketService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
@@ -35,15 +38,14 @@ public class TicketController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<List<TicketResponseDTO>> findMyTickets(Authentication authentication) {
-        return ResponseEntity.ok(ticketService.findMyTickets(authentication.getName()));
+    public ResponseEntity<List<TicketResponseDTO>> findMyTickets() {
+        return ResponseEntity.ok(ticketService.findMyTickets(jwtService.getLoggedInUser().getEmail()));
     }
 
     @PostMapping
-    public ResponseEntity<TicketResponseDTO> create(@Valid @RequestBody TicketRequestDTO dto,
-                                                    Authentication authentication) {
+    public ResponseEntity<TicketResponseDTO> create(@Valid @RequestBody TicketRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ticketService.create(dto, authentication.getName()));
+                .body(ticketService.create(dto, jwtService.getLoggedInUser().getEmail()));
     }
 
     @PutMapping("/{id}")
