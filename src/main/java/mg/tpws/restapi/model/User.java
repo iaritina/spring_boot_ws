@@ -22,7 +22,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role = "ROLE_USER";
+    private RoleName role = RoleName.ROLE_USER;
 
     public User(String email, String password){
         this.email = email;

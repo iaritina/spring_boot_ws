@@ -23,7 +23,7 @@ public class JwtService {
         Date expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 20);
         return Jwts.builder()
                 .subject(user.getEmail()) // identifiant principal
-                .claim("role", user.getRole())
+                .claim("role", user.getRole().name())
                 .issuedAt(now)
                 .expiration(expirationDate)
                 .signWith(getKey())
