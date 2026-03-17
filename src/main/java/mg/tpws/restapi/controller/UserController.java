@@ -3,6 +3,7 @@ package mg.tpws.restapi.controller;
 import jakarta.validation.Valid;
 import mg.tpws.restapi.dto.user.UpdateUserDTO;
 import mg.tpws.restapi.dto.user.UserResponseDTO;
+import mg.tpws.restapi.model.JWTUserPrincipal;
 import mg.tpws.restapi.model.User;
 import mg.tpws.restapi.service.JwtService;
 import mg.tpws.restapi.service.UserService;
@@ -26,6 +27,7 @@ public class UserController {
     public UserController(UserService service) {
         this.service = service;
     }
+
     // ADMIN
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> findAll() {
@@ -54,21 +56,8 @@ public class UserController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization", required = false) String header) {
-        if (header == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Token absent");
-        }
+    public ResponseEntity<JWTUserPrincipal> getProfile() {
 
-        String token = header.replace("Bearer ", "");
-
-        if (!jwtService.isValid(token)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Token invalide");
-        }
-
-        String email = jwtService.extractEmail(token);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Map.of("email",email));
+        return ResponseEntity.ok(jwtService.getLoggedInUser());
     }
 }

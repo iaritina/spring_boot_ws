@@ -2,7 +2,10 @@ package mg.tpws.restapi.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import mg.tpws.restapi.model.JWTUserPrincipal;
 import mg.tpws.restapi.model.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -23,6 +26,7 @@ public class JwtService {
         Date expirationDate = new Date(System.currentTimeMillis() + 1000 * 60 * 20);
         return Jwts.builder()
                 .subject(user.getEmail()) // identifiant principal
+                .claim("name", user.getName())
                 .claim("role", user.getRole().name())
                 .issuedAt(now)
                 .expiration(expirationDate)
@@ -59,6 +63,20 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload()
                 .get("role", String.class);
+    }
+
+    public String extractName(String token) {
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get("name", String.class);
+    }
+
+    public JWTUserPrincipal getLoggedInUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (JWTUserPrincipal) authentication.getPrincipal();
     }
 
 }

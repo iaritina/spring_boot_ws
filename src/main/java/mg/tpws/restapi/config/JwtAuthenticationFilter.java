@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mg.tpws.restapi.model.JWTUserPrincipal;
 import mg.tpws.restapi.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,10 +36,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             String email = jwtService.extractEmail(token);
+            String name = jwtService.extractName(token);
             String role = jwtService.extractRole(token);
+
+            JWTUserPrincipal principal= new JWTUserPrincipal(email, name, role);
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(
-                            email,
+                            principal,
                             null,
                             List.of(new SimpleGrantedAuthority(role))
                     );
