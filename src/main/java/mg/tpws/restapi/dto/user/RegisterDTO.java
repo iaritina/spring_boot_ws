@@ -2,11 +2,15 @@ package mg.tpws.restapi.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mg.tpws.restapi.model.RoleName;
 
 @Setter @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterDTO {
     @NotBlank
     @Email
