@@ -1,8 +1,7 @@
 package mg.tpws.restapi.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +9,9 @@ import java.time.LocalDateTime;
 @Table(name = "ticket_comments")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TicketComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
