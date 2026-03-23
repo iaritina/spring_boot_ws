@@ -4,12 +4,13 @@ import lombok.Builder;
 import lombok.Data;
 import mg.tpws.restapi.model.TicketPriority;
 import mg.tpws.restapi.model.TicketStatus;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class TicketResponseDTO {
+public class TicketResponseDTO extends RepresentationModel<TicketResponseDTO> {
     private Long id;
     private String title;
     private String description;
