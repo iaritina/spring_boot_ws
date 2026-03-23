@@ -1,4 +1,5 @@
 package mg.tpws.restapi.dto.ticketAssignment;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import mg.tpws.restapi.model.TicketPriority;
 import mg.tpws.restapi.model.TicketStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,16 +17,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketAssignmentDetailResponseDTO {
-    private Long id;
-    private LocalDateTime assignedAt;
 
     private Long ticketId;
     private String ticketTitle;
     private String ticketDescription;
     private TicketStatus ticketStatus;
     private TicketPriority ticketPriority;
-
-    private Long agentId;
-    private String agentName;
-    private String agentEmail;
+    private List<AgentDTO> agents;
 }

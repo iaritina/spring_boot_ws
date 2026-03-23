@@ -1,5 +1,6 @@
 package mg.tpws.restapi.service;
 
+import mg.tpws.restapi.dto.ticketAssignment.AgentDTO;
 import mg.tpws.restapi.dto.ticketAssignment.AssignedTicketResponseDTO;
 import mg.tpws.restapi.dto.ticketAssignment.TicketAssignmentDetailResponseDTO;
 import mg.tpws.restapi.dto.ticketAssignment.TicketAssignmentResponseDTO;
@@ -37,7 +38,7 @@ public class TicketAssignmentService {
         User agent = userRepository.findById(agentId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        if (agent.getRole() == null || !agent.getRole().name().equals("AGENT")) {
+        if (agent.getRole() == null || !agent.getRole().name().equals("ROLE_AGENT")) {
             throw new RuntimeException("Cet utilisateur n'est pas un agent");
         }
 
@@ -55,21 +56,38 @@ public class TicketAssignmentService {
         return toTicketAssignmentResponseDTO(savedAssignment);
     }
 
-    public List<TicketAssignmentDetailResponseDTO> getAssignmentsByTicket(Long ticketId) {
+    public TicketAssignmentDetailResponseDTO getAssignmentsByTicket(Long ticketId) {
+
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket introuvable"));
 
-        return ticketAssignmentRepository.findByTicketId(ticket.getId())
-                .stream()
-                .map(this::toTicketAssignmentDetailResponseDTO)
+        List<TicketAssignment> assignments =
+                ticketAssignmentRepository.findByTicketId(ticketId);
+
+        List<AgentDTO> agents = assignments.stream()
+                .map(a -> new AgentDTO(
+                        a.getAgent().getId(),
+                        a.getAgent().getName(),
+                        a.getAgent().getEmail()
+                ))
+                .distinct()
                 .toList();
+
+        return TicketAssignmentDetailResponseDTO.builder()
+                .ticketId(ticket.getId())
+                .ticketTitle(ticket.getTitle())
+                .ticketDescription(ticket.getDescription())
+                .ticketStatus(ticket.getStatus())
+                .ticketPriority(ticket.getPriority())
+                .agents(agents)
+                .build();
     }
 
     public List<AssignedTicketResponseDTO> getTicketsByAgent(Long agentId) {
         User agent = userRepository.findById(agentId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        if (agent.getRole() == null || !agent.getRole().name().equals("AGENT")) {
+        if (agent.getRole() == null || !agent.getRole().name().equals("ROLE_AGENT")) {
             throw new RuntimeException("Cet utilisateur n'est pas un agent");
         }
 
@@ -99,21 +117,6 @@ public class TicketAssignmentService {
                 .description(ticket.getDescription())
                 .status(ticket.getStatus())
                 .priority(ticket.getPriority())
-                .build();
-    }
-
-    private TicketAssignmentDetailResponseDTO toTicketAssignmentDetailResponseDTO(TicketAssignment assignment) {
-        return TicketAssignmentDetailResponseDTO.builder()
-                .id(assignment.getId())
-                .assignedAt(assignment.getAssignedAt())
-                .ticketId(assignment.getTicket().getId())
-                .ticketTitle(assignment.getTicket().getTitle())
-                .ticketDescription(assignment.getTicket().getDescription())
-                .ticketStatus(assignment.getTicket().getStatus())
-                .ticketPriority(assignment.getTicket().getPriority())
-                .agentId(assignment.getAgent().getId())
-                .agentName(assignment.getAgent().getName())
-                .agentEmail(assignment.getAgent().getEmail())
                 .build();
     }
 }

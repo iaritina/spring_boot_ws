@@ -36,7 +36,7 @@ public class TicketAssignmentController {
     }
 
     @GetMapping("/ticket/{ticketId}")
-    public ResponseEntity<List<TicketAssignmentDetailResponseDTO>> getAssignmentsByTicket(@PathVariable Long ticketId) {
+    public ResponseEntity<TicketAssignmentDetailResponseDTO> getAssignmentsByTicket(@PathVariable Long ticketId) {
         return ResponseEntity.ok(ticketAssignmentService.getAssignmentsByTicket(ticketId));
     }
 }
