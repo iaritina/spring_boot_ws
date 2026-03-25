@@ -1,9 +1,7 @@
 package mg.tpws.restapi.controller;
 
 import jakarta.validation.Valid;
-import mg.tpws.restapi.dto.ticket.TicketRequestDTO;
-import mg.tpws.restapi.dto.ticket.TicketResponseDTO;
-import mg.tpws.restapi.dto.ticket.TicketUpdateDTO;
+import mg.tpws.restapi.dto.ticket.*;
 import mg.tpws.restapi.service.JwtService;
 import mg.tpws.restapi.service.TicketService;
 import org.springframework.hateoas.CollectionModel;
@@ -78,5 +76,15 @@ public class TicketController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         ticketService.delete(id);
         return ResponseEntity.ok("Ticket deleted successfully");
+    }
+
+    @GetMapping("/stats/by-category")
+    public ResponseEntity<List<TicketStatsByCategoryDTO>> getStatsByCategory() {
+        return ResponseEntity.ok(ticketService.getStatsByCategory());
+    }
+
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
+        return ResponseEntity.ok(ticketService.getStatsByStatus());
     }
 }

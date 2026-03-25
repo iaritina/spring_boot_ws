@@ -1,8 +1,6 @@
 package mg.tpws.restapi.service;
 
-import mg.tpws.restapi.dto.ticket.TicketRequestDTO;
-import mg.tpws.restapi.dto.ticket.TicketResponseDTO;
-import mg.tpws.restapi.dto.ticket.TicketUpdateDTO;
+import mg.tpws.restapi.dto.ticket.*;
 import mg.tpws.restapi.model.Category;
 import mg.tpws.restapi.model.Ticket;
 import mg.tpws.restapi.model.TicketStatus;
@@ -93,6 +91,14 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
         ticketRepository.delete(ticket);
+    }
+
+    public List<TicketStatsByCategoryDTO> getStatsByCategory() {
+        return ticketRepository.countTicketsByCategory();
+    }
+
+    public List<TicketStatsByStatusDTO> getStatsByStatus() {
+        return ticketRepository.countTicketsByStatus();
     }
 
     private TicketResponseDTO toResponseDTO(Ticket ticket) {
