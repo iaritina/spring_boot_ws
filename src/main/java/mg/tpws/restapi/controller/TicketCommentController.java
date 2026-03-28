@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api/tickets/{ticketId}/comments")
 @Tag(name = "Ticket Comments", description = "Endpoints de gestion des commentaires de ticket")
 public class TicketCommentController {
 
@@ -31,7 +31,7 @@ public class TicketCommentController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/{ticketId}")
+    @GetMapping
     @Operation(
             summary = "Lister les commentaires d'un ticket",
             description = "Retourne tous les commentaires associes a un ticket"
@@ -53,7 +53,7 @@ public class TicketCommentController {
     @PostMapping
     @Operation(
             summary = "Ajouter un commentaire a un ticket",
-            description = "Cree un nouveau commentaire sur un ticket pour l'utilisateur authentifie"
+            description = "Cree un nouveau commentaire sur le ticket cible pour l'utilisateur authentifie"
     )
     @ApiResponses({
             @ApiResponse(
@@ -65,8 +65,9 @@ public class TicketCommentController {
                     )
             )
     })
-    public ResponseEntity<CommentResponseDTO> create(@Valid @RequestBody CommentRequestDTO dto) {
+    public ResponseEntity<CommentResponseDTO> create(@PathVariable Long ticketId,
+                                                     @Valid @RequestBody CommentRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ticketCommentService.create(dto, jwtService.getLoggedInUser().getEmail()));
+                .body(ticketCommentService.create(ticketId, dto, jwtService.getLoggedInUser().getEmail()));
     }
 }

@@ -36,8 +36,8 @@ public class TicketCommentService {
                 .toList();
     }
 
-    public CommentResponseDTO create(CommentRequestDTO dto, String userEmail) {
-        Ticket ticket = ticketRepository.findById(dto.getTicketId())
+    public CommentResponseDTO create(Long ticketId, CommentRequestDTO dto, String userEmail) {
+        Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         User author = userRepository.findUserByEmail(userEmail)
