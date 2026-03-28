@@ -82,11 +82,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/assignments/ticket/**")
                         .hasAnyRole("ADMIN", "AGENT")
 
-
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/products"
-                        ).permitAll()
+                        
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",
