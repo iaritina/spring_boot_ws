@@ -1,0 +1,955 @@
+{
+  "info": {
+    "_postman_id": "41c55514-49dd-4f8a-881c-d7800b325d0b",
+    "name": "Spring Boot",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24392303"
+  },
+  "item": [
+    {
+      "name": "Admins",
+      "item": [
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "Find all users",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find user by ID",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Jean Dupont\",\r\n  \"email\": \"jean.dupont@example.com\",\r\n  \"role\": \"ROLE_USER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Profile",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/users/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Categories",
+          "item": [
+            {
+              "name": "Find All",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find by id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/categories/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Authentification\",\r\n  \"description\": \"Tickets lies a la connexion, a l'inscription et a la gestion des acces\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/categories/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Server Problem\",\r\n  \"description\": \"Problem with the server\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/categories",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgzNTI3LCJleHAiOjE3NzQ3ODQ3Mjd9.ndisSGPKb9o8ueEvqR5yxxMNeSw1Jshp5LJYNz6YNAA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/categories/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Find All",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZWFuLmR1cG9udEBleGFtcGxlLmNvbSIsIm5hbWUiOiJKZWFuIER1cG9udCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NzQ3ODU2NzUsImV4cCI6MTc3NDc4Njg3NX0.u1X4-75u1SKy24brHozZ3RkWpK-gfedDyiTsb-EjJO8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My tickets",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZWFuLmR1cG9udEBleGFtcGxlLmNvbSIsIm5hbWUiOiJKZWFuIER1cG9udCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NzQ3ODU0MTQsImV4cCI6MTc3NDc4NjYxNH0.cXzcvD2cKkbn8W4b9oujvYaw4kVRO3q9ZvBAcoZMHdU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find all my open tickets",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZ2VudEBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZ2VudCIsInJvbGUiOiJST0xFX0FHRU5UIiwiaWF0IjoxNzc0NzkxOTkzLCJleHAiOjE3NzQ3OTMxOTN9.ehDc62FMv5IN4qpPV_LZivYmLDnJAuxHhPXU0HETxFc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/me/agent/open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "me",
+                "agent",
+                "open"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find By ID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg0NTkxLCJleHAiOjE3NzQ3ODU3OTF9.-wYHMk8RNpLtw3OQcAz1BP1OFkR4ZBgWfpuBnZHhOfg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg0NTkxLCJleHAiOjE3NzQ3ODU3OTF9.-wYHMk8RNpLtw3OQcAz1BP1OFkR4ZBgWfpuBnZHhOfg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkyMDcxLCJleHAiOjE3NzQ3OTMyNzF9.RAAyheCfQ8NVGyyK4GuIB9jII10ThxgmRdgi4gAe5Pw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"H5 Down\",\r\n  \"description\": \"Server H5 Down\",\r\n  \"priority\": \"HIGH\",\r\n  \"categoryId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Close Ticket",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzgwNjMzLCJleHAiOjE3NzQ3ODE4MzN9.8EyTVQ7e-jGDvq6ZpCmBtYPVthRdF7hJ8WySVaxsP8o",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/tickets/1/close",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "tickets",
+                "1",
+                "close"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ticket Comments",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkzOTU3LCJleHAiOjE3NzQ3OTUxNTd9.uj1kYodYY0JK-Rmwm3Aph3qDGl2H6MQe04Uvkbj6tDw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"content\": \"Je rencontre encore le problème.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/2/comments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "2",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find By Ticket ID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZWFuLmR1cG9udEBleGFtcGxlLmNvbSIsIm5hbWUiOiJKZWFuIER1cG9udCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NzQ3ODU2NzUsImV4cCI6MTc3NDc4Njg3NX0.u1X4-75u1SKy24brHozZ3RkWpK-gfedDyiTsb-EjJO8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"content\": \"Je rencontre encore le problème.\",\r\n  \"ticketId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/2/comments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "2",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Comment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkzOTU3LCJleHAiOjE3NzQ3OTUxNTd9.uj1kYodYY0JK-Rmwm3Aph3qDGl2H6MQe04Uvkbj6tDw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"content\": \"Je rencontre encore le problème.\",\r\n  \"ticketId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/2/comments/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "2",
+                "comments",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tickets assignments",
+      "item": [
+        {
+          "name": "Assign agent to Ticket",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkyMDcxLCJleHAiOjE3NzQ3OTMyNzF9.RAAyheCfQ8NVGyyK4GuIB9jII10ThxgmRdgi4gAe5Pw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/1/assignments/agent/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "1",
+                "assignments",
+                "agent",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ticket assigned to the agent",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg2MTc5LCJleHAiOjE3NzQ3ODczNzl9.XVRQnKVxeX9RecOWO4LZhdEQ0KG3Ok71VY5Bx4wf4wE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/3/assignments/agent/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "3",
+                "assignments",
+                "agent",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Agents in ticket",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg2MTc5LCJleHAiOjE3NzQ3ODczNzl9.XVRQnKVxeX9RecOWO4LZhdEQ0KG3Ok71VY5Bx4wf4wE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/3/assignments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "3",
+                "assignments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Stat By Categories",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg0NTkxLCJleHAiOjE3NzQ3ODU3OTF9.-wYHMk8RNpLtw3OQcAz1BP1OFkR4ZBgWfpuBnZHhOfg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/stats/by-category",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "stats",
+                "by-category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stat By Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg0NTkxLCJleHAiOjE3NzQ3ODU3OTF9.-wYHMk8RNpLtw3OQcAz1BP1OFkR4ZBgWfpuBnZHhOfg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/stats/by-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets",
+                "stats",
+                "by-status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"agent@example.com\",\r\n    \"password\":\"agent123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
