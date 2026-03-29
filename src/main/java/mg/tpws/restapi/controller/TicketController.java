@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -183,14 +184,14 @@ public class TicketController {
                     responseCode = "200",
                     description = "Ticket supprime avec succes",
                     content = @Content(
-                            mediaType = MediaType.TEXT_PLAIN_VALUE,
-                            examples = @ExampleObject(value = "Ticket deleted successfully")
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Map.class)
                     )
             )
     })
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
         ticketService.delete(id);
-        return ResponseEntity.ok("Ticket deleted successfully");
+        return ResponseEntity.ok(Map.of("message", "Ticket deleted successfully"));
     }
 
     @GetMapping("/stats/by-category")
