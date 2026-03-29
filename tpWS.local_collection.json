@@ -594,12 +594,10 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/tickets/1/close",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/api/tickets/1/close",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "tickets",
@@ -749,7 +747,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkyMDcxLCJleHAiOjE3NzQ3OTMyNzF9.RAAyheCfQ8NVGyyK4GuIB9jII10ThxgmRdgi4gAe5Pw",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzk5NjU2LCJleHAiOjE3NzQ4MDA4NTZ9.leItFRAzNBt2qib_iVWQ19WCwkC0KfvKcCFPPibwpVs",
                   "type": "string"
                 }
               ]
@@ -761,53 +759,14 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{baseUrl}}/api/tickets/1/assignments/agent/2",
+              "raw": "{{baseUrl}}/api/tickets/7/assignments/agent/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
                 "tickets",
-                "1",
-                "assignments",
-                "agent",
-                "2"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Ticket assigned to the agent",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg2MTc5LCJleHAiOjE3NzQ3ODczNzl9.XVRQnKVxeX9RecOWO4LZhdEQ0KG3Ok71VY5Bx4wf4wE",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tickets/3/assignments/agent/2",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "tickets",
-                "3",
+                "7",
                 "assignments",
                 "agent",
                 "2"
@@ -930,7 +889,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\":\"agent@example.com\",\r\n    \"password\":\"agent123\"\r\n}",
+          "raw": "{\r\n    \"email\":\"admin@example.com\",\r\n    \"password\":\"admin123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

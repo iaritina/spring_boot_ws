@@ -594,12 +594,10 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/tickets/1/close",
-              "protocol": "http",
+              "raw": "{{baseUrlProd}}/api/tickets/1/close",
               "host": [
-                "localhost"
+                "{{baseUrlProd}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "tickets",
@@ -769,45 +767,6 @@
                 "api",
                 "tickets",
                 "1",
-                "assignments",
-                "agent",
-                "2"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Ticket assigned to the agent",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0Nzg2MTc5LCJleHAiOjE3NzQ3ODczNzl9.XVRQnKVxeX9RecOWO4LZhdEQ0KG3Ok71VY5Bx4wf4wE",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{baseUrlProd}}/api/tickets/3/assignments/agent/2",
-              "host": [
-                "{{baseUrlProd}}"
-              ],
-              "path": [
-                "api",
-                "tickets",
-                "3",
                 "assignments",
                 "agent",
                 "2"
