@@ -87,8 +87,8 @@ public class TicketCommentController {
                     )
             )
     })
-    public ResponseEntity<Map<String, String>> delete(@PathVariable Long ticketId) {
-        ticketCommentService.deleteComment(ticketId);
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long ticketId,@PathVariable Long id) {
+        ticketCommentService.deleteComment(ticketId,id);
         return ResponseEntity.ok(Map.of("message", "Ticket comment deleted successfully"));
     }
 }
