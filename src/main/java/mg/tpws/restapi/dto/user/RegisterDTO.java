@@ -45,7 +45,7 @@ public class RegisterDTO {
 
     @Schema(
             description = "Role attribue au nouvel utilisateur",
-            example = "USER",
+            example = "ROLE_USER",
             allowableValues = {"USER", "ADMIN"}
     )
     private RoleName role;

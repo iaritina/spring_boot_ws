@@ -39,7 +39,7 @@ public class UpdateUserDTO {
     @NotNull
     @Schema(
             description = "Role attribue a l'utilisateur",
-            example = "USER",
+            example = "ROLE_USER",
             allowableValues = {"USER", "ADMIN"},
             requiredMode = Schema.RequiredMode.REQUIRED
     )
