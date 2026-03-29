@@ -52,6 +52,16 @@ public class TicketCommentService {
         return toResponseDTO(ticketCommentRepository.save(comment));
     }
 
+    public void deleteComment(Long id) {
+        TicketComment ticketComment = getTicketCommentOrThrow(id);
+        ticketCommentRepository.delete(ticketComment);
+    }
+
+    private TicketComment getTicketCommentOrThrow(Long id) {
+        return ticketCommentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket comment not found"));
+    }
+
     private CommentResponseDTO toResponseDTO(TicketComment comment) {
         return CommentResponseDTO.builder()
                 .id(comment.getId())
