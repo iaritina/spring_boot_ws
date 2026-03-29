@@ -8,6 +8,7 @@ import mg.tpws.restapi.model.User;
 import mg.tpws.restapi.repository.TicketCommentRepository;
 import mg.tpws.restapi.repository.TicketRepository;
 import mg.tpws.restapi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class TicketCommentService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
 
+    @Autowired
     public TicketCommentService(TicketCommentRepository ticketCommentRepository,
                                 TicketRepository ticketRepository,
                                 UserRepository userRepository) {
@@ -34,8 +36,8 @@ public class TicketCommentService {
                 .toList();
     }
 
-    public CommentResponseDTO create(CommentRequestDTO dto, String userEmail) {
-        Ticket ticket = ticketRepository.findById(dto.getTicketId())
+    public CommentResponseDTO create(Long ticketId, CommentRequestDTO dto, String userEmail) {
+        Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
         User author = userRepository.findUserByEmail(userEmail)

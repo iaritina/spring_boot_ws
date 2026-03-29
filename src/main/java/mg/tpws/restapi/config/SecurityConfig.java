@@ -62,8 +62,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
 
                         .requestMatchers("/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/comments/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/comments/**")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/*/comments").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/tickets/*/comments")
                         .hasAnyRole("AGENT", "ADMIN", "USER")
 
                         .requestMatchers(HttpMethod.GET, "/api/tickets/me").hasRole("USER")
@@ -83,11 +83,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/assignments/ticket/**")
                         .hasAnyRole("ADMIN", "AGENT")
 
-
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/products"
-                        ).permitAll()
+                        
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",

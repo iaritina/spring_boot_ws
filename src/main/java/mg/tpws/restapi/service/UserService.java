@@ -31,12 +31,6 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return toResponseDTO(user);
     }
-    
-    public UserResponseDTO findByEmail(String email) {
-        User user = repository.findUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return toResponseDTO(user);
-    }
 
     public UserResponseDTO update(Long id, UpdateUserDTO dto) {
         User user = repository.findById(id)

@@ -15,33 +15,24 @@ import java.util.Map;
 
 @Service
 public class AuthService {
-    @Autowired
+
     private UserRepository userRepository;
 
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
     private JwtService jwtService;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-    /*public String login(LoginDTO dto) {
-        User user = userRepository
-                .findUserByEmail(dto.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
-        }
-
-        return jwtService.generateToken(user);
-    }*/
-
+    @Autowired
+    public AuthService(UserRepository userRepository,
+                       JwtService jwtService, PasswordEncoder passwordEncoder,
+                       AuthenticationManager authenticationManager) {
+        this.userRepository = userRepository;
+        this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+    }
 
     public String login(LoginDTO dto) {
         try {
