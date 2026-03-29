@@ -87,7 +87,7 @@ public class TicketAssignmentService {
                 .build();
     }
 
-    public List<AssignedTicketResponseDTO> getTicketsByAgent(Long agentId) {
+    public List<AssignedTicketResponseDTO> getTicketsByAgent(Long agentId, boolean showAll) {
         User agent = userRepository.findById(agentId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
@@ -97,6 +97,22 @@ public class TicketAssignmentService {
 
         return ticketAssignmentRepository.findByAgentId(agentId)
                 .stream()
+                .filter(assignment -> showAll || !"CLOSED".equals(assignment.getTicket().getStatus().name()))
+                .map(this::toAssignedTicketResponseDTO)
+                .toList();
+    }
+
+    public List<AssignedTicketResponseDTO> findMyOpenAssignedTickets(String role, String email) {
+        if (!"ROLE_AGENT".equals(role)) {
+            throw new RuntimeException("Cet utilisateur n'est pas un agent");
+        }
+
+        User agent = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        return ticketAssignmentRepository.findByAgentId(agent.getId())
+                .stream()
+                .filter(assignment -> "OPEN".equals(assignment.getTicket().getStatus().name()))
                 .map(this::toAssignedTicketResponseDTO)
                 .toList();
     }

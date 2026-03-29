@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import mg.tpws.restapi.dto.ticket.*;
+import mg.tpws.restapi.dto.ticketAssignment.AssignedTicketResponseDTO;
 import mg.tpws.restapi.service.JwtService;
+import mg.tpws.restapi.service.TicketAssignmentService;
 import mg.tpws.restapi.service.TicketService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
@@ -33,9 +35,12 @@ public class TicketController {
     private final TicketService ticketService;
     private final JwtService jwtService;
 
-    public TicketController(TicketService ticketService, JwtService jwtService) {
+    private final TicketAssignmentService ticketAssignmentService;
+
+    public TicketController(TicketService ticketService, JwtService jwtService, TicketAssignmentService ticketAssignmentService) {
         this.ticketService = ticketService;
         this.jwtService = jwtService;
+        this.ticketAssignmentService = ticketAssignmentService;
     }
 
     @GetMapping
@@ -230,6 +235,53 @@ public class TicketController {
     })
     public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
         return ResponseEntity.ok(ticketService.getStatsByStatus());
+    }
+
+
+    @GetMapping("/agent/{agentId}")
+    @Operation(
+            summary = "Lister les tickets assignes a un agent",
+            description = "Retourne les tickets assignes a un agent. Si showAll=true, les tickets CLOSED sont aussi inclus."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Liste des tickets assignes retournee avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssignedTicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<AssignedTicketResponseDTO>> getTicketsByAgent(
+            @PathVariable Long agentId,
+            @RequestParam(defaultValue = "false") boolean showAll
+    ) {
+        return ResponseEntity.ok(ticketAssignmentService.getTicketsByAgent(agentId, showAll));
+    }
+
+    @GetMapping("/me/agent/open")
+    @Operation(
+            summary = "Lister mes tickets OPEN assignes",
+            description = "Retourne les tickets avec statut OPEN assignes a l'agent actuellement authentifie"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Liste des tickets OPEN assignes retournee avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssignedTicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<AssignedTicketResponseDTO>> findMyOpenAssignedTickets() {
+        return ResponseEntity.ok(
+                ticketAssignmentService.findMyOpenAssignedTickets(
+                        jwtService.getLoggedInUser().getRole(),
+                        jwtService.getLoggedInUser().getEmail()
+                )
+        );
     }
 
     private void addTicketLinks(TicketResponseDTO ticket) {

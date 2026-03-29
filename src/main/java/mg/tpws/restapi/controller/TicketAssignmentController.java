@@ -72,25 +72,5 @@ public class TicketAssignmentController {
         return ResponseEntity.ok(ticketAssignmentService.getAssignmentsByTicket(ticketId));
     }
 
-    @GetMapping("/agent/{agentId}")
-    @Operation(
-            summary = "Lister les tickets assignes a un agent",
-            description = "Retourne tous les tickets actuellement assignes a un agent donne"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Liste des tickets assignes retournee avec succes",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = AssignedTicketResponseDTO.class)
-                    )
-            )
-    })
-    public ResponseEntity<List<AssignedTicketResponseDTO>> getTicketsByAgent(
-            @PathVariable Long ticketId,
-            @PathVariable Long agentId
-    ) {
-        return ResponseEntity.ok(ticketAssignmentService.getTicketsByAgent(agentId));
-    }
+
 }
