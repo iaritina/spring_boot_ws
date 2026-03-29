@@ -11,7 +11,9 @@ import mg.tpws.restapi.repository.TicketAssignmentRepository;
 import mg.tpws.restapi.repository.TicketRepository;
 import mg.tpws.restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class TicketAssignmentService {
         Ticket ticket = ticketService.getOpenTicketOrThrow(ticketId);
 
         User agent = userRepository.findById(agentId)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur introuvable"));
 
         if (agent.getRole() == null || !agent.getRole().name().equals("ROLE_AGENT")) {
             throw new RuntimeException("Cet utilisateur n'est pas un agent");
@@ -63,7 +65,7 @@ public class TicketAssignmentService {
     public TicketAssignmentDetailResponseDTO getAssignmentsByTicket(Long ticketId) {
 
         Ticket ticket = ticketRepository.findById(ticketId)
-                .orElseThrow(() -> new RuntimeException("Ticket introuvable"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket introuvable"));
 
         List<TicketAssignment> assignments =
                 ticketAssignmentRepository.findByTicketId(ticketId);
@@ -89,7 +91,7 @@ public class TicketAssignmentService {
 
     public List<AssignedTicketResponseDTO> getTicketsByAgent(Long agentId, boolean showAll) {
         User agent = userRepository.findById(agentId)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur introuvable"));
 
         if (agent.getRole() == null || !agent.getRole().name().equals("ROLE_AGENT")) {
             throw new RuntimeException("Cet utilisateur n'est pas un agent");
@@ -108,7 +110,7 @@ public class TicketAssignmentService {
         }
 
         User agent = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Utilisateur introuvable"));
 
         return ticketAssignmentRepository.findByAgentId(agent.getId())
                 .stream()
