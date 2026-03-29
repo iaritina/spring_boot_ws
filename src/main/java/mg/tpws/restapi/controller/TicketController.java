@@ -55,9 +55,7 @@ public class TicketController {
     public ResponseEntity<CollectionModel<TicketResponseDTO>> findAll() {
         List<TicketResponseDTO> tickets = ticketService.findAll();
 
-        tickets.forEach(ticket -> ticket.add(
-                linkTo(methodOn(TicketController.class).findById(ticket.getId())).withSelfRel()
-        ));
+        tickets.forEach(this::addTicketLinks);
 
         CollectionModel<TicketResponseDTO> collectionModel = CollectionModel.of(
                 tickets,
@@ -84,9 +82,7 @@ public class TicketController {
     })
     public ResponseEntity<TicketResponseDTO> findById(@PathVariable Long id) {
         TicketResponseDTO dto = ticketService.findById(id);
-        dto.add(linkTo(methodOn(TicketController.class).findById(id)).withSelfRel());
-        dto.add(linkTo(methodOn(TicketController.class).findAll()).withRel("allTickets"));
-        dto.add(linkTo(methodOn(TicketCommentController.class).findByTicket(id)).withRel("comments"));
+        addTicketLinks(dto);
 
         return ResponseEntity.ok(dto);
     }
@@ -107,7 +103,9 @@ public class TicketController {
             )
     })
     public ResponseEntity<List<TicketResponseDTO>> findMyTickets() {
-        return ResponseEntity.ok(ticketService.findMyTickets(jwtService.getLoggedInUser().getEmail()));
+        List<TicketResponseDTO> tickets = ticketService.findMyTickets(jwtService.getLoggedInUser().getEmail());
+        tickets.forEach(this::addTicketLinks);
+        return ResponseEntity.ok(tickets);
     }
 
     @PostMapping
@@ -126,8 +124,10 @@ public class TicketController {
             )
     })
     public ResponseEntity<TicketResponseDTO> create(@Valid @RequestBody TicketRequestDTO dto) {
+        TicketResponseDTO response = ticketService.create(dto, jwtService.getLoggedInUser().getEmail());
+        addTicketLinks(response);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ticketService.create(dto, jwtService.getLoggedInUser().getEmail()));
+                .body(response);
     }
 
     @PutMapping("/{id}")
@@ -147,7 +147,9 @@ public class TicketController {
     })
     public ResponseEntity<TicketResponseDTO> update(@PathVariable Long id,
                                                     @Valid @RequestBody TicketUpdateDTO dto) {
-        return ResponseEntity.ok(ticketService.update(id, dto));
+        TicketResponseDTO response = ticketService.update(id, dto);
+        addTicketLinks(response);
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}/close")
@@ -166,7 +168,9 @@ public class TicketController {
             )
     })
     public ResponseEntity<TicketResponseDTO> close(@PathVariable Long id) {
-        return ResponseEntity.ok(ticketService.close(id));
+        TicketResponseDTO response = ticketService.close(id);
+        addTicketLinks(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
@@ -225,5 +229,13 @@ public class TicketController {
     })
     public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
         return ResponseEntity.ok(ticketService.getStatsByStatus());
+    }
+
+    private void addTicketLinks(TicketResponseDTO ticket) {
+        Long ticketId = ticket.getId();
+        ticket.add(linkTo(methodOn(TicketController.class).findById(ticketId)).withSelfRel());
+        ticket.add(linkTo(methodOn(TicketController.class).findAll()).withRel("allTickets"));
+        ticket.add(linkTo(methodOn(TicketCommentController.class).findByTicket(ticketId)).withRel("comments"));
+        ticket.add(linkTo(methodOn(TicketAssignmentController.class).getAssignmentsByTicket(ticketId)).withRel("assignments"));
     }
 }
