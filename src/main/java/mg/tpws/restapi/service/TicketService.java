@@ -9,7 +9,9 @@ import mg.tpws.restapi.repository.CategoryRepository;
 import mg.tpws.restapi.repository.TicketRepository;
 import mg.tpws.restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class TicketService {
 
     public List<TicketResponseDTO> findMyTickets(String email) {
         User creator = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         return ticketRepository.findByCreator(creator)
                 .stream()
@@ -52,10 +54,10 @@ public class TicketService {
 
     public TicketResponseDTO create(TicketRequestDTO dto, String userEmail) {
         User creator = userRepository.findUserByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         Category category = categoryRepository.findById(dto.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
 
         Ticket ticket = Ticket.builder()
                 .title(dto.getTitle())
@@ -73,7 +75,7 @@ public class TicketService {
         Ticket ticket = getTicketOrThrow(id);
 
         Category category = categoryRepository.findById(dto.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
 
         ticket.setTitle(dto.getTitle());
         ticket.setDescription(dto.getDescription());
@@ -117,7 +119,7 @@ public class TicketService {
 
     private Ticket getTicketOrThrow(Long id) {
         return ticketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found"));
     }
 
     private TicketResponseDTO toResponseDTO(Ticket ticket) {
