@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import mg.tpws.restapi.dto.ticket.TicketRequestDTO;
-import mg.tpws.restapi.dto.ticket.TicketResponseDTO;
-import mg.tpws.restapi.dto.ticket.TicketUpdateDTO;
+import mg.tpws.restapi.dto.ticket.*;
 import mg.tpws.restapi.service.JwtService;
 import mg.tpws.restapi.service.TicketService;
 import org.springframework.hateoas.CollectionModel;
@@ -115,7 +113,7 @@ public class TicketController {
     @PostMapping
     @Operation(
             summary = "Creer un ticket",
-            description = "Cree un nouveau ticket pour l'utilisateur authentifie"
+            description = "Cree un nouveau ticket"
     )
     @ApiResponses({
             @ApiResponse(
@@ -152,6 +150,25 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.update(id, dto));
     }
 
+    @PatchMapping("/{id}/close")
+    @Operation(
+            summary = "Fermer un ticket",
+            description = "Passe le statut d'un ticket a CLOSED a partir de son identifiant"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ticket ferme avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<TicketResponseDTO> close(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.close(id));
+    }
+
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Supprimer un ticket",
@@ -170,5 +187,43 @@ public class TicketController {
     public ResponseEntity<String> delete(@PathVariable Long id) {
         ticketService.delete(id);
         return ResponseEntity.ok("Ticket deleted successfully");
+    }
+
+    @GetMapping("/stats/by-category")
+    @Operation(
+            summary = "Recuperer les statistiques des tickets par categorie",
+            description = "Retourne le nombre de tickets regroupes par categorie"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Statistiques par categorie retournees avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketStatsByCategoryDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<TicketStatsByCategoryDTO>> getStatsByCategory() {
+        return ResponseEntity.ok(ticketService.getStatsByCategory());
+    }
+
+    @GetMapping("/stats/by-status")
+    @Operation(
+            summary = "Recuperer les statistiques des tickets par statut",
+            description = "Retourne le nombre de tickets regroupes par statut"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Statistiques par statut retournees avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketStatsByStatusDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
+        return ResponseEntity.ok(ticketService.getStatsByStatus());
     }
 }

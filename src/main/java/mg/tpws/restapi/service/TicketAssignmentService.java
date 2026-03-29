@@ -21,21 +21,23 @@ public class TicketAssignmentService {
     private final TicketAssignmentRepository ticketAssignmentRepository;
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
+    private final TicketService ticketService;
 
     @Autowired
     public TicketAssignmentService(
             TicketAssignmentRepository ticketAssignmentRepository,
             TicketRepository ticketRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            TicketService ticketService
     ) {
         this.ticketAssignmentRepository = ticketAssignmentRepository;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
+        this.ticketService = ticketService;
     }
 
     public TicketAssignmentResponseDTO assignTicketToAgent(Long ticketId, Long agentId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
-                .orElseThrow(() -> new RuntimeException("Ticket introuvable"));
+        Ticket ticket = ticketService.getOpenTicketOrThrow(ticketId);
 
         User agent = userRepository.findById(agentId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -122,4 +124,3 @@ public class TicketAssignmentService {
                 .build();
     }
 }
-;

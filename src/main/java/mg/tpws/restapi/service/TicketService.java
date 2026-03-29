@@ -1,8 +1,6 @@
 package mg.tpws.restapi.service;
 
-import mg.tpws.restapi.dto.ticket.TicketRequestDTO;
-import mg.tpws.restapi.dto.ticket.TicketResponseDTO;
-import mg.tpws.restapi.dto.ticket.TicketUpdateDTO;
+import mg.tpws.restapi.dto.ticket.*;
 import mg.tpws.restapi.model.Category;
 import mg.tpws.restapi.model.Ticket;
 import mg.tpws.restapi.model.TicketStatus;
@@ -39,9 +37,7 @@ public class TicketService {
     }
 
     public TicketResponseDTO findById(Long id) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ticket not found"));
-        return toResponseDTO(ticket);
+        return toResponseDTO(getTicketOrThrow(id));
     }
 
     public List<TicketResponseDTO> findMyTickets(String email) {
@@ -74,8 +70,7 @@ public class TicketService {
     }
 
     public TicketResponseDTO update(Long id, TicketUpdateDTO dto) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+        Ticket ticket = getTicketOrThrow(id);
 
         Category category = categoryRepository.findById(dto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -89,10 +84,40 @@ public class TicketService {
         return toResponseDTO(ticketRepository.save(ticket));
     }
 
+    public TicketResponseDTO close(Long id) {
+        Ticket ticket = getTicketOrThrow(id);
+
+        ticket.setStatus(TicketStatus.CLOSED);
+
+        return toResponseDTO(ticketRepository.save(ticket));
+    }
+
     public void delete(Long id) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ticket not found"));
+        Ticket ticket = getTicketOrThrow(id);
         ticketRepository.delete(ticket);
+    }
+
+    public Ticket getOpenTicketOrThrow(Long id) {
+        Ticket ticket = getTicketOrThrow(id);
+
+        if (ticket.getStatus() != TicketStatus.OPEN) {
+            throw new RuntimeException("Le ticket est ferme et ne peut plus etre assigne");
+        }
+
+        return ticket;
+    }
+
+    public List<TicketStatsByCategoryDTO> getStatsByCategory() {
+        return ticketRepository.countTicketsByCategory();
+    }
+
+    public List<TicketStatsByStatusDTO> getStatsByStatus() {
+        return ticketRepository.countTicketsByStatus();
+    }
+
+    private Ticket getTicketOrThrow(Long id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ticket not found"));
     }
 
     private TicketResponseDTO toResponseDTO(Ticket ticket) {

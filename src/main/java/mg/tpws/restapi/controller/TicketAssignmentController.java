@@ -18,16 +18,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assignments")
+@RequestMapping("/api/tickets/{ticketId}/assignments")
 @Tag(name = "Ticket Assignments", description = "Endpoints d'assignation des tickets aux agents")
 public class TicketAssignmentController {
+
     private final TicketAssignmentService ticketAssignmentService;
 
     public TicketAssignmentController(TicketAssignmentService ticketAssignmentService) {
         this.ticketAssignmentService = ticketAssignmentService;
     }
 
-    @PostMapping("/ticket/{ticketId}/agent/{agentId}")
+    @PostMapping("/agent/{agentId}")
     @Operation(
             summary = "Assigner un ticket a un agent",
             description = "Cree une nouvelle assignation entre un ticket et un agent"
@@ -50,6 +51,27 @@ public class TicketAssignmentController {
                 .body(ticketAssignmentService.assignTicketToAgent(ticketId, agentId));
     }
 
+    @GetMapping
+    @Operation(
+            summary = "Recuperer les assignations d'un ticket",
+            description = "Retourne le detail des assignations associees a un ticket"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Details des assignations retournes avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketAssignmentDetailResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<TicketAssignmentDetailResponseDTO> getAssignmentsByTicket(
+            @PathVariable Long ticketId
+    ) {
+        return ResponseEntity.ok(ticketAssignmentService.getAssignmentsByTicket(ticketId));
+    }
+
     @GetMapping("/agent/{agentId}")
     @Operation(
             summary = "Lister les tickets assignes a un agent",
@@ -65,26 +87,10 @@ public class TicketAssignmentController {
                     )
             )
     })
-    public ResponseEntity<List<AssignedTicketResponseDTO>> getTicketsByAgent(@PathVariable Long agentId) {
+    public ResponseEntity<List<AssignedTicketResponseDTO>> getTicketsByAgent(
+            @PathVariable Long ticketId,
+            @PathVariable Long agentId
+    ) {
         return ResponseEntity.ok(ticketAssignmentService.getTicketsByAgent(agentId));
-    }
-
-    @GetMapping("/ticket/{ticketId}")
-    @Operation(
-            summary = "Recuperer les assignations d'un ticket",
-            description = "Retourne le detail des assignations associees a un ticket"
-    )
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Details des assignations retournes avec succes",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = TicketAssignmentDetailResponseDTO.class)
-                    )
-            )
-    })
-    public ResponseEntity<TicketAssignmentDetailResponseDTO> getAssignmentsByTicket(@PathVariable Long ticketId) {
-        return ResponseEntity.ok(ticketAssignmentService.getAssignmentsByTicket(ticketId));
     }
 }
