@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tickets/{ticketId}/comments")
@@ -69,5 +70,25 @@ public class TicketCommentController {
                                                      @Valid @RequestBody CommentRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ticketCommentService.create(ticketId, dto, jwtService.getLoggedInUser().getEmail()));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Supprimer un commentaire de ticket",
+            description = "Supprime un commentaire de ticket a partir de son identifiant"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Commentaire de ticket supprime avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Map.class)
+                    )
+            )
+    })
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long ticketId,@PathVariable Long id) {
+        ticketCommentService.deleteComment(ticketId,id);
+        return ResponseEntity.ok(Map.of("message", "Ticket comment deleted successfully"));
     }
 }

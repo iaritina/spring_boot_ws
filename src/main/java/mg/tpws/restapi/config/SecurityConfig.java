@@ -63,10 +63,13 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/tickets/*/comments").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/tickets/*/comments")
-                        .hasAnyRole("AGENT", "ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/tickets/*/comments").hasAnyRole("AGENT", "ADMIN", "USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/tickets/*/comments/*").hasAnyRole("AGENT", "ADMIN", "USER")
+
 
                         .requestMatchers(HttpMethod.GET, "/api/tickets/me").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/me/agent/open").hasRole("AGENT")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/agent/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/tickets/stats/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/tickets/**").hasAnyRole("AGENT", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/tickets/**").hasAnyRole("AGENT", "ADMIN")
@@ -74,14 +77,16 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/tickets/**").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/assignments/**")
-                        .hasAnyRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/api/assignments/agent/**")
+
+                        .requestMatchers(HttpMethod.POST, "/api/tickets/*/assignments/agent/*")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/*/assignments")
                         .hasAnyRole("ADMIN", "AGENT")
 
-                        .requestMatchers(HttpMethod.GET, "/api/assignments/ticket/**")
-                        .hasAnyRole("ADMIN", "AGENT")
+//                        .requestMatchers(HttpMethod.GET, "/api/tickets/*/assignments/agent/*")
+//                        .hasAnyRole("ADMIN", "AGENT")
 
                         
                         .requestMatchers("/h2-console/**").permitAll()

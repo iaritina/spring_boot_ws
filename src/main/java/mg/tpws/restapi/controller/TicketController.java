@@ -9,7 +9,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import mg.tpws.restapi.dto.ticket.*;
+import mg.tpws.restapi.dto.ticketAssignment.AssignedTicketResponseDTO;
 import mg.tpws.restapi.service.JwtService;
+import mg.tpws.restapi.service.TicketAssignmentService;
 import mg.tpws.restapi.service.TicketService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -32,9 +35,12 @@ public class TicketController {
     private final TicketService ticketService;
     private final JwtService jwtService;
 
-    public TicketController(TicketService ticketService, JwtService jwtService) {
+    private final TicketAssignmentService ticketAssignmentService;
+
+    public TicketController(TicketService ticketService, JwtService jwtService, TicketAssignmentService ticketAssignmentService) {
         this.ticketService = ticketService;
         this.jwtService = jwtService;
+        this.ticketAssignmentService = ticketAssignmentService;
     }
 
     @GetMapping
@@ -183,14 +189,14 @@ public class TicketController {
                     responseCode = "200",
                     description = "Ticket supprime avec succes",
                     content = @Content(
-                            mediaType = MediaType.TEXT_PLAIN_VALUE,
-                            examples = @ExampleObject(value = "Ticket deleted successfully")
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = Map.class)
                     )
             )
     })
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
         ticketService.delete(id);
-        return ResponseEntity.ok("Ticket deleted successfully");
+        return ResponseEntity.ok(Map.of("message", "Ticket deleted successfully"));
     }
 
     @GetMapping("/stats/by-category")
@@ -229,6 +235,53 @@ public class TicketController {
     })
     public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
         return ResponseEntity.ok(ticketService.getStatsByStatus());
+    }
+
+
+    @GetMapping("/agent/{agentId}")
+    @Operation(
+            summary = "Lister les tickets assignes a un agent",
+            description = "Retourne les tickets assignes a un agent. Si showAll=true, les tickets CLOSED sont aussi inclus."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Liste des tickets assignes retournee avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssignedTicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<AssignedTicketResponseDTO>> getTicketsByAgent(
+            @PathVariable Long agentId,
+            @RequestParam(defaultValue = "false") boolean showAll
+    ) {
+        return ResponseEntity.ok(ticketAssignmentService.getTicketsByAgent(agentId, showAll));
+    }
+
+    @GetMapping("/me/agent/open")
+    @Operation(
+            summary = "Lister mes tickets OPEN assignes",
+            description = "Retourne les tickets avec statut OPEN assignes a l'agent actuellement authentifie"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Liste des tickets OPEN assignes retournee avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = AssignedTicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<List<AssignedTicketResponseDTO>> findMyOpenAssignedTickets() {
+        return ResponseEntity.ok(
+                ticketAssignmentService.findMyOpenAssignedTickets(
+                        jwtService.getLoggedInUser().getRole(),
+                        jwtService.getLoggedInUser().getEmail()
+                )
+        );
     }
 
     private void addTicketLinks(TicketResponseDTO ticket) {

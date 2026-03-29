@@ -36,7 +36,7 @@ public class UserResponseDTO {
 
     @Schema(
             description = "Role actuel de l'utilisateur",
-            example = "USER",
+            example = "ROLE_USER",
             allowableValues = {"USER", "ADMIN"}
     )
     private RoleName role;
