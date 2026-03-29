@@ -74,13 +74,13 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/tickets/**").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/assignments/**")
-                        .hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/tickets/*/assignments/agent/*")
+                        .hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/api/assignments/agent/**")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/*/assignments")
                         .hasAnyRole("ADMIN", "AGENT")
 
-                        .requestMatchers(HttpMethod.GET, "/api/assignments/ticket/**")
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/*/assignments/agent/*")
                         .hasAnyRole("ADMIN", "AGENT")
 
                         
