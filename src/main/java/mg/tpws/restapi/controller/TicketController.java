@@ -113,7 +113,7 @@ public class TicketController {
     @PostMapping
     @Operation(
             summary = "Creer un ticket",
-            description = "Cree un nouveau ticket pour l'utilisateur authentifie"
+            description = "Cree un nouveau ticket"
     )
     @ApiResponses({
             @ApiResponse(
@@ -148,6 +148,25 @@ public class TicketController {
     public ResponseEntity<TicketResponseDTO> update(@PathVariable Long id,
                                                     @Valid @RequestBody TicketUpdateDTO dto) {
         return ResponseEntity.ok(ticketService.update(id, dto));
+    }
+
+    @PatchMapping("/{id}/close")
+    @Operation(
+            summary = "Fermer un ticket",
+            description = "Passe le statut d'un ticket a CLOSED a partir de son identifiant"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Ticket ferme avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketResponseDTO.class)
+                    )
+            )
+    })
+    public ResponseEntity<TicketResponseDTO> close(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.close(id));
     }
 
     @DeleteMapping("/{id}")
