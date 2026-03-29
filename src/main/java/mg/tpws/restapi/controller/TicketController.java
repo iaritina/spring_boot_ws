@@ -171,11 +171,39 @@ public class TicketController {
     }
 
     @GetMapping("/stats/by-category")
+    @Operation(
+            summary = "Recuperer les statistiques des tickets par categorie",
+            description = "Retourne le nombre de tickets regroupes par categorie"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Statistiques par categorie retournees avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketStatsByCategoryDTO.class)
+                    )
+            )
+    })
     public ResponseEntity<List<TicketStatsByCategoryDTO>> getStatsByCategory() {
         return ResponseEntity.ok(ticketService.getStatsByCategory());
     }
 
     @GetMapping("/stats/by-status")
+    @Operation(
+            summary = "Recuperer les statistiques des tickets par statut",
+            description = "Retourne le nombre de tickets regroupes par statut"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Statistiques par statut retournees avec succes",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TicketStatsByStatusDTO.class)
+                    )
+            )
+    })
     public ResponseEntity<List<TicketStatsByStatusDTO>> getStatsByStatus() {
         return ResponseEntity.ok(ticketService.getStatsByStatus());
     }
