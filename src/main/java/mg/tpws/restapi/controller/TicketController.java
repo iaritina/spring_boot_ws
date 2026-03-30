@@ -1,6 +1,7 @@
 package mg.tpws.restapi.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,7 +46,8 @@ public class TicketController {
     @GetMapping
     @Operation(
             summary = "Lister tous les tickets",
-            description = "Retourne tous les tickets avec leurs liens HATEOAS"
+            description = "Retourne tous les tickets avec leurs liens HATEOAS. "
+                    + "La liste peut etre filtree par titre de ticket et par nom de categorie."
     )
     @ApiResponses({
             @ApiResponse(
@@ -58,7 +60,15 @@ public class TicketController {
             )
     })
     public ResponseEntity<CollectionModel<TicketResponseDTO>> findAll(
+            @Parameter(
+                    description = "Filtre optionnel sur le titre du ticket. Recherche partielle, insensible a la casse.",
+                    example = "server"
+            )
             @RequestParam(required = false) String name,
+            @Parameter(
+                    description = "Filtre optionnel sur le nom de la categorie. Recherche partielle, insensible a la casse.",
+                    example = "auth"
+            )
             @RequestParam(required = false) String category
     ) {
         List<TicketResponseDTO> tickets = ticketService.findAll(name, category);
