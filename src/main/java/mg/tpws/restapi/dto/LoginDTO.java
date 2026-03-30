@@ -14,14 +14,14 @@ import lombok.Setter;
 public class LoginDTO {
     @Schema(
             description = "Adresse e-mail de l'utilisateur",
-            example = "user@example.com",
+            example = "admin@example.com",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private String email;
 
     @Schema(
             description = "Mot de passe du compte",
-            example = "password123",
+            example = "admin123",
             requiredMode = Schema.RequiredMode.REQUIRED,
             format = "password"
     )
