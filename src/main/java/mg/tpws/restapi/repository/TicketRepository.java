@@ -7,6 +7,7 @@ import mg.tpws.restapi.model.TicketStatus;
 import mg.tpws.restapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,14 @@ import java.util.stream.Collectors;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByCreator(User creator);
 
+    @Query("""
+        SELECT t
+        FROM Ticket t
+        JOIN t.category c
+        WHERE (:name IS NULL OR LOWER(t.title) LIKE LOWER(CONCAT('%', :name, '%')))
+          AND (:category IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :category, '%')))
+    """)
+    List<Ticket> findAllByFilters(@Param("name") String name, @Param("category") String category);
 
     @Query("""
         SELECT new mg.tpws.restapi.dto.ticket.TicketStatsByCategoryDTO(c.name, COUNT(t))

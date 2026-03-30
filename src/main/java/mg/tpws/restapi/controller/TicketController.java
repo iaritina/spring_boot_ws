@@ -2,7 +2,6 @@ package mg.tpws.restapi.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -58,14 +57,17 @@ public class TicketController {
                     )
             )
     })
-    public ResponseEntity<CollectionModel<TicketResponseDTO>> findAll() {
-        List<TicketResponseDTO> tickets = ticketService.findAll();
+    public ResponseEntity<CollectionModel<TicketResponseDTO>> findAll(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category
+    ) {
+        List<TicketResponseDTO> tickets = ticketService.findAll(name, category);
 
         tickets.forEach(this::addTicketLinks);
 
         CollectionModel<TicketResponseDTO> collectionModel = CollectionModel.of(
                 tickets,
-                linkTo(methodOn(TicketController.class).findAll()).withSelfRel()
+                linkTo(methodOn(TicketController.class).findAll(name, category)).withSelfRel()
         );
 
         return ResponseEntity.ok(collectionModel);
@@ -287,7 +289,7 @@ public class TicketController {
     private void addTicketLinks(TicketResponseDTO ticket) {
         Long ticketId = ticket.getId();
         ticket.add(linkTo(methodOn(TicketController.class).findById(ticketId)).withSelfRel());
-        ticket.add(linkTo(methodOn(TicketController.class).findAll()).withRel("allTickets"));
+        ticket.add(linkTo(methodOn(TicketController.class).findAll(null, null)).withRel("allTickets"));
         ticket.add(linkTo(methodOn(TicketCommentController.class).findByTicket(ticketId)).withRel("comments"));
         ticket.add(linkTo(methodOn(TicketAssignmentController.class).getAssignmentsByTicket(ticketId)).withRel("assignments"));
     }

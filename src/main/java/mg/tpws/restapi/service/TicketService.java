@@ -31,8 +31,8 @@ public class TicketService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<TicketResponseDTO> findAll() {
-        return ticketRepository.findAll()
+    public List<TicketResponseDTO> findAll(String name, String category) {
+        return ticketRepository.findAllByFilters(normalizeFilter(name), normalizeFilter(category))
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();
@@ -120,6 +120,15 @@ public class TicketService {
     private Ticket getTicketOrThrow(Long id) {
         return ticketRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found"));
+    }
+
+    private String normalizeFilter(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        String trimmedValue = value.trim();
+        return trimmedValue.isEmpty() ? null : trimmedValue;
     }
 
     private TicketResponseDTO toResponseDTO(Ticket ticket) {
