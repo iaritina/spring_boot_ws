@@ -607,6 +607,148 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Find All - Filter By Name",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlProd}}/api/tickets?name=H5",
+              "host": [
+                "{{baseUrlProd}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "H5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find All - Filter By Category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlProd}}/api/tickets?category=Support technique",
+              "host": [
+                "{{baseUrlProd}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Support technique"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find All - Filter By Name and Category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlProd}}/api/tickets?name=Impossible&category=Support",
+              "host": [
+                "{{baseUrlProd}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Impossible"
+                },
+                {
+                  "key": "category",
+                  "value": "Co"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
