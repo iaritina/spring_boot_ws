@@ -1,6 +1,6 @@
 {
 	"id": "eba08d53-98ac-4d5f-9700-1c4a82692900",
-	"name": "microservice-spring",
+	"name": "tpws-spring",
 	"values": [
 		{
 			"key": "baseUrl",

@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "41c55514-49dd-4f8a-881c-d7800b325d0b",
-    "name": "Spring Boot",
+    "name": "Spring Boot Local",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "24392303"
   },
