@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "41c55514-49dd-4f8a-881c-d7800b325d0b",
-    "name": "Spring Boot Local",
+    "name": "Spring Boot",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "24392303"
   },
@@ -349,7 +349,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqZWFuLmR1cG9udEBleGFtcGxlLmNvbSIsIm5hbWUiOiJKZWFuIER1cG9udCIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NzQ3ODU2NzUsImV4cCI6MTc3NDc4Njg3NX0.u1X4-75u1SKy24brHozZ3RkWpK-gfedDyiTsb-EjJO8",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
                   "type": "string"
                 }
               ]
@@ -373,6 +373,148 @@
               "path": [
                 "api",
                 "tickets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find All - Filter By Name",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?name=H5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "H5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find All - Filter By Category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?category=Support technique",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Support technique"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find All - Filter By Name and Category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?name=Impossible&category=Support",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tickets"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Impossible"
+                },
+                {
+                  "key": "category",
+                  "value": "Co"
+                }
               ]
             }
           },
@@ -549,7 +691,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0NzkyMDcxLCJleHAiOjE3NzQ3OTMyNzF9.RAAyheCfQ8NVGyyK4GuIB9jII10ThxgmRdgi4gAe5Pw",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5hbWUiOiJBZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc0ODg4NDYyLCJleHAiOjE3NzQ4ODk2NjJ9.bA-dkYWJbICXGrtFyPsxXwMgtEO6861kOKdREe_O8qY",
                   "type": "string"
                 }
               ]
